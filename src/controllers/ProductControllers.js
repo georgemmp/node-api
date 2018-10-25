@@ -3,7 +3,8 @@ const mongoose = require('mongoose')
 const Product = new mongoose.model('Product')
 
 async function getAll(req, res) {
-    const products = await Product.find({})
+    const {page = 1} = req.query
+    const products = await Product.paginate({}, {page, limit: 10})
 
     return res.json(products)
 }
